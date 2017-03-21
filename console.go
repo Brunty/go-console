@@ -76,9 +76,9 @@ func YellowBox(s string) {
 	PrintBox(43, 30, s)
 }
 
-// BlueBox outputs white text on a blue background
+// BlueBox outputs black text on a blue background
 func BlueBox(s string) {
-	PrintBox(44, 37, s)
+	PrintBox(44, 30, s)
 }
 
 // MagentaBox outputs white text on a magenta background

@@ -244,7 +244,7 @@ func TestItPrintsABlueBox(t *testing.T) {
 
 	// assert
 	result := buf.String()
-	expected := "\x1b[44;37m my string goes here \x1b[0m\n"
+	expected := "\x1b[44;30m my string goes here \x1b[0m\n"
 
 	fmt.Println(result)
 
