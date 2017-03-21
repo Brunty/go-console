@@ -55,3 +55,50 @@ func PrintLine(code int, s string) {
 	fmt.Fprint(out, s)
 	fmt.Fprintln(out, "\x1b[0m")
 }
+
+// BlackBox outputs white text on a black background
+func BlackBox(s string) {
+	PrintBox(40, 37, s)
+}
+
+// RedBox outputs white text on a red background
+func RedBox(s string) {
+	PrintBox(41, 37, s)
+}
+
+// GreenBox outputs black text on a green background
+func GreenBox(s string) {
+	PrintBox(42, 30, s)
+}
+
+// YellowBox outputs black text on a yellow background
+func YellowBox(s string) {
+	PrintBox(43, 30, s)
+}
+
+// BlueBox outputs white text on a blue background
+func BlueBox(s string) {
+	PrintBox(44, 37, s)
+}
+
+// MagentaBox outputs white text on a magenta background
+func MagentaBox(s string) {
+	PrintBox(45, 37, s)
+}
+
+// CyanBox outputs black text on a cyan background
+func CyanBox(s string) {
+	PrintBox(46, 30, s)
+}
+
+// WhiteBox outputs black text on a white background
+func WhiteBox(s string) {
+	PrintBox(47, 30, s)
+}
+
+// PrintBox outputs colored text on a colored background
+func PrintBox(backgroundCode int, fontCode int, s string) {
+	fmt.Fprint(out, "\x1b["+strconv.Itoa(backgroundCode)+";"+strconv.Itoa(fontCode)+"m")
+	fmt.Fprint(out, " "+s+" ")
+	fmt.Fprintln(out, "\x1b[0m")
+}
