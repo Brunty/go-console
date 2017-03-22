@@ -1,6 +1,7 @@
 package console
 
 import (
+	"bufio"
 	"fmt"
 	"io"
 	"os"
@@ -9,10 +10,20 @@ import (
 )
 
 var out io.Writer = os.Stdout
+var in io.Reader = os.Stdin
 
 func Title(s string) {
 	fmt.Fprintln(out, s)
 	fmt.Fprintln(out, strings.Repeat("=", len(s)))
+}
+
+// Question reads input based on the question you pass to it
+func Question(question string) (string, error) {
+	reader := bufio.NewReader(in)
+	fmt.Fprint(out, question+" > ")
+	text, err := reader.ReadString('\n')
+	text = strings.Replace(text, "\n", "", -1)
+	return text, err
 }
 
 // Black outputs in ansi color black
