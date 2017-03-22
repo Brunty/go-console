@@ -12,6 +12,7 @@ import (
 var out io.Writer = os.Stdout
 var in io.Reader = os.Stdin
 
+// Title outputs the string given underlined by equals
 func Title(s string) {
 	fmt.Fprintln(out, s)
 	fmt.Fprintln(out, strings.Repeat("=", len(s)))
@@ -20,7 +21,7 @@ func Title(s string) {
 // Question reads input based on the question you pass to it
 func Question(question string) (string, error) {
 	reader := bufio.NewReader(in)
-	fmt.Fprint(out, question+" \x1b[32m>\x1b[0m")
+	fmt.Fprint(out, question+" \x1b[32m>\x1b[0m ")
 	text, err := reader.ReadString('\n')
 	text = strings.Replace(text, "\n", "", -1)
 	return text, err
@@ -73,43 +74,43 @@ func PrintLine(code int, s string) {
 	fmt.Fprintln(out, "\x1b[0m")
 }
 
-// BlackBox outputs white text on a black background
-func BlackBox(s string) {
+// BlackPanel outputs white text on a black background
+func BlackPanel(s string) {
 	PrintBox(40, 37, s)
 }
 
-// RedBox outputs white text on a red background
-func RedBox(s string) {
+// RedPanel outputs white text on a red background
+func RedPanel(s string) {
 	PrintBox(41, 37, s)
 }
 
-// GreenBox outputs black text on a green background
-func GreenBox(s string) {
+// GreenPanel outputs black text on a green background
+func GreenPanel(s string) {
 	PrintBox(42, 30, s)
 }
 
-// YellowBox outputs black text on a yellow background
-func YellowBox(s string) {
+// YellowPanel outputs black text on a yellow background
+func YellowPanel(s string) {
 	PrintBox(43, 30, s)
 }
 
-// BlueBox outputs black text on a blue background
-func BlueBox(s string) {
+// BluePanel outputs black text on a blue background
+func BluePanel(s string) {
 	PrintBox(44, 30, s)
 }
 
-// MagentaBox outputs white text on a magenta background
-func MagentaBox(s string) {
+// MagentaPanel outputs white text on a magenta background
+func MagentaPanel(s string) {
 	PrintBox(45, 37, s)
 }
 
-// CyanBox outputs black text on a cyan background
-func CyanBox(s string) {
+// CyanPanel outputs black text on a cyan background
+func CyanPanel(s string) {
 	PrintBox(46, 30, s)
 }
 
-// WhiteBox outputs black text on a white background
-func WhiteBox(s string) {
+// WhitePanel outputs black text on a white background
+func WhitePanel(s string) {
 	PrintBox(47, 30, s)
 }
 

@@ -6,7 +6,23 @@ import (
 	"testing"
 )
 
-func TestIrPrintsATitle(t *testing.T) {
+func TestItGetsInputFromAQuestion(t *testing.T) {
+	// assemble
+	buf := &bytes.Buffer{}
+	out = buf
+
+	// act
+	result, _ := Question("Where would you like to go today?")
+
+	// assert
+	expected := ""
+
+	if result != expected {
+		t.Error(result, expected)
+	}
+}
+
+func TestItPrintsATitle(t *testing.T) {
 	// assemble
 	buf := &bytes.Buffer{}
 	out = buf
@@ -23,7 +39,6 @@ func TestIrPrintsATitle(t *testing.T) {
 	if result != expected {
 		t.Error(result, expected)
 	}
-
 }
 
 func TestItPrintsInBlack(t *testing.T) {
@@ -184,7 +199,7 @@ func TestItPrintsABlackBox(t *testing.T) {
 	out = buf
 
 	// act
-	BlackBox("my string goes here")
+	BlackPanel("my string goes here")
 
 	// assert
 	result := buf.String()
@@ -203,7 +218,7 @@ func TestItPrintsARedBox(t *testing.T) {
 	out = buf
 
 	// act
-	RedBox("my string goes here")
+	RedPanel("my string goes here")
 
 	// assert
 	result := buf.String()
@@ -222,7 +237,7 @@ func TestItPrintsAGreenBox(t *testing.T) {
 	out = buf
 
 	// act
-	GreenBox("my string goes here")
+	GreenPanel("my string goes here")
 
 	// assert
 	result := buf.String()
@@ -241,7 +256,7 @@ func TestItPrintsAYellowBox(t *testing.T) {
 	out = buf
 
 	// act
-	YellowBox("my string goes here")
+	YellowPanel("my string goes here")
 
 	// assert
 	result := buf.String()
@@ -260,7 +275,7 @@ func TestItPrintsABlueBox(t *testing.T) {
 	out = buf
 
 	// act
-	BlueBox("my string goes here")
+	BluePanel("my string goes here")
 
 	// assert
 	result := buf.String()
@@ -279,7 +294,7 @@ func TestItPrintsAMagentaBox(t *testing.T) {
 	out = buf
 
 	// act
-	MagentaBox("my string goes here")
+	MagentaPanel("my string goes here")
 
 	// assert
 	result := buf.String()
@@ -298,7 +313,7 @@ func TestItPrintsACyanBox(t *testing.T) {
 	out = buf
 
 	// act
-	CyanBox("my string goes here")
+	CyanPanel("my string goes here")
 
 	// assert
 	result := buf.String()
@@ -317,7 +332,7 @@ func TestItPrintsAWhiteBox(t *testing.T) {
 	out = buf
 
 	// act
-	WhiteBox("my string goes here")
+	WhitePanel("my string goes here")
 
 	// assert
 	result := buf.String()
