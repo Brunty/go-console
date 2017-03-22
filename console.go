@@ -5,9 +5,15 @@ import (
 	"io"
 	"os"
 	"strconv"
+	"strings"
 )
 
 var out io.Writer = os.Stdout
+
+func Title(s string) {
+	fmt.Fprintln(out, s)
+	fmt.Fprintln(out, strings.Repeat("=", len(s)))
+}
 
 // Black outputs in ansi color black
 func Black(s string) {

@@ -6,6 +6,26 @@ import (
 	"testing"
 )
 
+func TestIrPrintsATitle(t *testing.T) {
+	// assemble
+	buf := &bytes.Buffer{}
+	out = buf
+
+	// act
+	Title("My string goes here")
+
+	// assert
+	result := buf.String()
+	expected := "My string goes here\n===================\n"
+
+	fmt.Print(result)
+
+	if result != expected {
+		t.Error(result, expected)
+	}
+
+}
+
 func TestItPrintsInBlack(t *testing.T) {
 	// assemble
 	buf := &bytes.Buffer{}
