@@ -20,7 +20,7 @@ func Title(s string) {
 // Question reads input based on the question you pass to it
 func Question(question string) (string, error) {
 	reader := bufio.NewReader(in)
-	fmt.Fprint(out, question+" > ")
+	fmt.Fprint(out, question+" \x1b[32m>\x1b[0m")
 	text, err := reader.ReadString('\n')
 	text = strings.Replace(text, "\n", "", -1)
 	return text, err
