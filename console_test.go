@@ -193,6 +193,121 @@ func TestItPrintsInWhite(t *testing.T) {
 	}
 }
 
+func TestItPrintsColorFromTags(t *testing.T) {
+	// assemble
+	buf := &bytes.Buffer{}
+	out = buf
+
+	// act
+	WriteLn("my <info>string</info> <error>goes</error> here")
+
+	// assert
+	result := buf.String()
+	expected := "my \x1b[32mstring\x1b[0m \x1b[31mgoes\x1b[0m here\n"
+
+	fmt.Println(result)
+
+	if result != expected {
+		t.Error(result, expected)
+	}
+}
+
+func TestItPrintsColorFromCustomTags(t *testing.T) {
+	// assemble
+	buf := &bytes.Buffer{}
+	out = buf
+
+	// act
+	AddStyle("mytag", "red")
+	WriteLn("my <mytag>string</mytag> goes here")
+
+	// assert
+	result := buf.String()
+	expected := "my \x1b[31mstring\x1b[0m goes here\n"
+
+	fmt.Println(result)
+
+	if result != expected {
+		t.Error(result, expected)
+	}
+}
+
+func TestItPrintsInfoText(t *testing.T) {
+	// assemble
+	buf := &bytes.Buffer{}
+	out = buf
+
+	// act
+	Info("my string goes here")
+
+	// assert
+	result := buf.String()
+	expected := "\x1b[32mmy string goes here\x1b[0m\n"
+
+	fmt.Println(result)
+
+	if result != expected {
+		t.Error(result, expected)
+	}
+}
+
+func TestItPrintsNoteText(t *testing.T) {
+	// assemble
+	buf := &bytes.Buffer{}
+	out = buf
+
+	// act
+	Note("my string goes here")
+
+	// assert
+	result := buf.String()
+	expected := "\x1b[36mmy string goes here\x1b[0m\n"
+
+	fmt.Println(result)
+
+	if result != expected {
+		t.Error(result, expected)
+	}
+}
+
+func TestItPrintsWarningText(t *testing.T) {
+	// assemble
+	buf := &bytes.Buffer{}
+	out = buf
+
+	// act
+	Warning("my string goes here")
+
+	// assert
+	result := buf.String()
+	expected := "\x1b[33mmy string goes here\x1b[0m\n"
+
+	fmt.Println(result)
+
+	if result != expected {
+		t.Error(result, expected)
+	}
+}
+
+func TestItPrintsErrorText(t *testing.T) {
+	// assemble
+	buf := &bytes.Buffer{}
+	out = buf
+
+	// act
+	Error("my string goes here")
+
+	// assert
+	result := buf.String()
+	expected := "\x1b[31mmy string goes here\x1b[0m\n"
+
+	fmt.Println(result)
+
+	if result != expected {
+		t.Error(result, expected)
+	}
+}
+
 func TestItPrintsABlackBox(t *testing.T) {
 	// assemble
 	buf := &bytes.Buffer{}
@@ -203,7 +318,7 @@ func TestItPrintsABlackBox(t *testing.T) {
 
 	// assert
 	result := buf.String()
-	expected := "\x1b[40;37m\n my string goes here \n\x1b[0m\n"
+	expected := "\x1b[40;37m\n\n my string goes here \n\x1b[0m\n"
 
 	fmt.Println(result)
 
@@ -222,7 +337,7 @@ func TestItPrintsARedBox(t *testing.T) {
 
 	// assert
 	result := buf.String()
-	expected := "\x1b[41;37m\n my string goes here \n\x1b[0m\n"
+	expected := "\x1b[41;37m\n\n my string goes here \n\x1b[0m\n"
 
 	fmt.Println(result)
 
@@ -241,7 +356,7 @@ func TestItPrintsAGreenBox(t *testing.T) {
 
 	// assert
 	result := buf.String()
-	expected := "\x1b[42;30m\n my string goes here \n\x1b[0m\n"
+	expected := "\x1b[42;30m\n\n my string goes here \n\x1b[0m\n"
 
 	fmt.Println(result)
 
@@ -260,7 +375,7 @@ func TestItPrintsAYellowBox(t *testing.T) {
 
 	// assert
 	result := buf.String()
-	expected := "\x1b[43;30m\n my string goes here \n\x1b[0m\n"
+	expected := "\x1b[43;30m\n\n my string goes here \n\x1b[0m\n"
 
 	fmt.Println(result)
 
@@ -279,7 +394,7 @@ func TestItPrintsABlueBox(t *testing.T) {
 
 	// assert
 	result := buf.String()
-	expected := "\x1b[44;30m\n my string goes here \n\x1b[0m\n"
+	expected := "\x1b[44;30m\n\n my string goes here \n\x1b[0m\n"
 
 	fmt.Println(result)
 
@@ -298,7 +413,7 @@ func TestItPrintsAMagentaBox(t *testing.T) {
 
 	// assert
 	result := buf.String()
-	expected := "\x1b[45;37m\n my string goes here \n\x1b[0m\n"
+	expected := "\x1b[45;37m\n\n my string goes here \n\x1b[0m\n"
 
 	fmt.Println(result)
 
@@ -317,7 +432,7 @@ func TestItPrintsACyanBox(t *testing.T) {
 
 	// assert
 	result := buf.String()
-	expected := "\x1b[46;30m\n my string goes here \n\x1b[0m\n"
+	expected := "\x1b[46;30m\n\n my string goes here \n\x1b[0m\n"
 
 	fmt.Println(result)
 
@@ -336,7 +451,7 @@ func TestItPrintsAWhiteBox(t *testing.T) {
 
 	// assert
 	result := buf.String()
-	expected := "\x1b[47;30m\n my string goes here \n\x1b[0m\n"
+	expected := "\x1b[47;30m\n\n my string goes here \n\x1b[0m\n"
 
 	fmt.Println(result)
 

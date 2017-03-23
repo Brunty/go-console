@@ -13,9 +13,7 @@ var out io.Writer = os.Stdout
 var in io.Reader = os.Stdin
 var tags = make(map[string]string)
 
-// Colors returns a map of colors that we can use to work out color codes for the app
-func Colors() map[string]int {
-
+func colors() map[string]int {
 	colors := make(map[string]int)
 
 	colors["black"] = 0
@@ -26,24 +24,41 @@ func Colors() map[string]int {
 	colors["magenta"] = 5
 	colors["cyan"] = 6
 	colors["white"] = 7
+
 	return colors
 }
 
-// ColorCode returns the value of the given color name
-func ColorCode(colorName string) int {
-	colors := Colors()
+func styles() map[string]string {
+	tags["info"] = "green"
+	tags["note"] = "blue"
+	tags["comment"] = "cyan"
+	tags["warning"] = "yellow"
+	tags["error"] = "red"
+	tags["black"] = "black"
+	tags["red"] = "red"
+	tags["green"] = "green"
+	tags["yellow"] = "yellow"
+	tags["blue"] = "blue"
+	tags["magenta"] = "magenta"
+	tags["cyan"] = "cyan"
+	tags["white"] = "white"
+
+	return tags
+}
+
+// colorCode returns the value of the given color name
+func colorCode(colorName string) int {
+	colors := colors()
 
 	return colors[colorName]
 }
 
-// FontColorCode returns the value used for styling console fonts of the given color name
-func FontColorCode(colorName string) int {
-	return 30 + ColorCode(colorName)
+func fontColorCode(colorName string) int {
+	return 30 + colorCode(colorName)
 }
 
-// BgColorCode returns the value used for styling console fonts of the given color name
-func BgColorCode(colorName string) int {
-	return 40 + ColorCode(colorName)
+func bgColorCode(colorName string) int {
+	return 40 + colorCode(colorName)
 }
 
 // Title outputs the string given underlined by equals
@@ -63,68 +78,62 @@ func Question(question string) (string, error) {
 
 // Black outputs in ansi color black
 func Black(s string) {
-	PrintLine(FontColorCode("black"), s)
+	PrintLine(fontColorCode("black"), s)
 }
 
 // Red outputs in ansi color red
 func Red(s string) {
-	PrintLine(FontColorCode("red"), s)
+	PrintLine(fontColorCode("red"), s)
 }
 
 // Green outputs in ansi color green
 func Green(s string) {
-	PrintLine(FontColorCode("green"), s)
+	PrintLine(fontColorCode("green"), s)
 }
 
 // Yellow outputs in ansi color yellow
 func Yellow(s string) {
-	PrintLine(FontColorCode("yellow"), s)
+	PrintLine(fontColorCode("yellow"), s)
 }
 
 // Blue outputs in ansi color blue
 func Blue(s string) {
-	PrintLine(FontColorCode("blue"), s)
+	PrintLine(fontColorCode("blue"), s)
 }
 
 // Magenta outputs in ansi color magenta
 func Magenta(s string) {
-	PrintLine(FontColorCode("magenta"), s)
+	PrintLine(fontColorCode("magenta"), s)
 }
 
 // Cyan outputs in ansi color cyan
 func Cyan(s string) {
-	PrintLine(FontColorCode("cyan"), s)
+	PrintLine(fontColorCode("cyan"), s)
 }
 
 // White outputs in ansi color white
 func White(s string) {
-	PrintLine(FontColorCode("white"), s)
+	PrintLine(fontColorCode("white"), s)
 }
 
-func Styles() map[string]string {
-	tags["info"] = "green"
-	tags["note"] = "blue"
-	tags["comment"] = "cyan"
-	tags["warning"] = "yellow"
-	tags["error"] = "red"
-	return tags
-}
-
+// AddStyle adds a new <tag> to be replaced with the <color> of choice
 func AddStyle(tag string, color string) {
 	tags[tag] = color
 }
 
+// WriteLn allows us to write a line to the console with markup in <tags> for colored output
 func WriteLn(s string) {
 
-	tags := Styles()
-
+	tags := styles()
 	output := s
+
 	for tag, color := range tags {
-		output = strings.Replace(output, "<"+tag+">", "\x1b["+strconv.Itoa(FontColorCode(color))+"m", -1)
+		output = strings.Replace(output, "<"+tag+">", "\x1b["+strconv.Itoa(fontColorCode(color))+"m", -1)
 		output = strings.Replace(output, "</"+tag+">", "\x1b[0m", -1)
 	}
 
 	output = strings.Replace(output, "</>", "\x1b[0m", -1)
+
 	fmt.Fprintln(out, output)
 }
 
@@ -157,48 +166,48 @@ func PrintLine(code int, s string) {
 
 // BlackPanel outputs white text on a black background
 func BlackPanel(s string) {
-	PrintBox(BgColorCode("black"), FontColorCode("white"), s)
+	PrintBox(bgColorCode("black"), fontColorCode("white"), s)
 }
 
 // RedPanel outputs white text on a red background
 func RedPanel(s string) {
-	PrintBox(BgColorCode("red"), FontColorCode("white"), s)
+	PrintBox(bgColorCode("red"), fontColorCode("white"), s)
 }
 
 // GreenPanel outputs black text on a green background
 func GreenPanel(s string) {
-	PrintBox(BgColorCode("green"), FontColorCode("black"), s)
+	PrintBox(bgColorCode("green"), fontColorCode("black"), s)
 }
 
 // YellowPanel outputs black text on a yellow background
 func YellowPanel(s string) {
-	PrintBox(BgColorCode("yellow"), FontColorCode("black"), s)
+	PrintBox(bgColorCode("yellow"), fontColorCode("black"), s)
 }
 
 // BluePanel outputs black text on a blue background
 func BluePanel(s string) {
-	PrintBox(BgColorCode("blue"), FontColorCode("black"), s)
+	PrintBox(bgColorCode("blue"), fontColorCode("black"), s)
 }
 
 // MagentaPanel outputs white text on a magenta background
 func MagentaPanel(s string) {
-	PrintBox(BgColorCode("magenta"), FontColorCode("white"), s)
+	PrintBox(bgColorCode("magenta"), fontColorCode("white"), s)
 }
 
 // CyanPanel outputs black text on a cyan background
 func CyanPanel(s string) {
-	PrintBox(BgColorCode("cyan"), FontColorCode("black"), s)
+	PrintBox(bgColorCode("cyan"), fontColorCode("black"), s)
 }
 
 // WhitePanel outputs black text on a white background
 func WhitePanel(s string) {
-	PrintBox(BgColorCode("white"), FontColorCode("black"), s)
+	PrintBox(bgColorCode("white"), fontColorCode("black"), s)
 }
 
 // PrintBox outputs colored text on a colored background
 func PrintBox(backgroundCode int, fontCode int, s string) {
 	fmt.Fprint(out, "\x1b["+strconv.Itoa(backgroundCode)+";"+strconv.Itoa(fontCode)+"m")
-	fmt.Fprintln(out, "\n")
+	fmt.Fprint(out, "\n\n")
 	fmt.Fprintln(out, " "+s+" ")
 	fmt.Fprintln(out, "\x1b[0m")
 }
