@@ -203,7 +203,7 @@ func TestItPrintsABlackBox(t *testing.T) {
 
 	// assert
 	result := buf.String()
-	expected := "\x1b[40;37m my string goes here \x1b[0m\n"
+	expected := "\x1b[40;37m\n my string goes here \n\x1b[0m\n"
 
 	fmt.Println(result)
 
@@ -222,7 +222,7 @@ func TestItPrintsARedBox(t *testing.T) {
 
 	// assert
 	result := buf.String()
-	expected := "\x1b[41;37m my string goes here \x1b[0m\n"
+	expected := "\x1b[41;37m\n my string goes here \n\x1b[0m\n"
 
 	fmt.Println(result)
 
@@ -241,7 +241,7 @@ func TestItPrintsAGreenBox(t *testing.T) {
 
 	// assert
 	result := buf.String()
-	expected := "\x1b[42;30m my string goes here \x1b[0m\n"
+	expected := "\x1b[42;30m\n my string goes here \n\x1b[0m\n"
 
 	fmt.Println(result)
 
@@ -260,7 +260,7 @@ func TestItPrintsAYellowBox(t *testing.T) {
 
 	// assert
 	result := buf.String()
-	expected := "\x1b[43;30m my string goes here \x1b[0m\n"
+	expected := "\x1b[43;30m\n my string goes here \n\x1b[0m\n"
 
 	fmt.Println(result)
 
@@ -279,7 +279,7 @@ func TestItPrintsABlueBox(t *testing.T) {
 
 	// assert
 	result := buf.String()
-	expected := "\x1b[44;30m my string goes here \x1b[0m\n"
+	expected := "\x1b[44;30m\n my string goes here \n\x1b[0m\n"
 
 	fmt.Println(result)
 
@@ -298,7 +298,7 @@ func TestItPrintsAMagentaBox(t *testing.T) {
 
 	// assert
 	result := buf.String()
-	expected := "\x1b[45;37m my string goes here \x1b[0m\n"
+	expected := "\x1b[45;37m\n my string goes here \n\x1b[0m\n"
 
 	fmt.Println(result)
 
@@ -317,7 +317,7 @@ func TestItPrintsACyanBox(t *testing.T) {
 
 	// assert
 	result := buf.String()
-	expected := "\x1b[46;30m my string goes here \x1b[0m\n"
+	expected := "\x1b[46;30m\n my string goes here \n\x1b[0m\n"
 
 	fmt.Println(result)
 
@@ -336,7 +336,7 @@ func TestItPrintsAWhiteBox(t *testing.T) {
 
 	// assert
 	result := buf.String()
-	expected := "\x1b[47;30m my string goes here \x1b[0m\n"
+	expected := "\x1b[47;30m\n my string goes here \n\x1b[0m\n"
 
 	fmt.Println(result)
 
