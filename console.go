@@ -9,6 +9,8 @@ import (
 	"strings"
 )
 
+const consoleColorReset = "\x1b[0m"
+
 var out io.Writer = os.Stdout
 var in io.Reader = os.Stdin
 var tags = make(map[string]string)
@@ -70,7 +72,7 @@ func Title(s string) {
 // Question reads input based on the question you pass to it
 func Question(question string) (string, error) {
 	reader := bufio.NewReader(in)
-	fmt.Fprint(out, question+" \x1b[32m>\x1b[0m ")
+	fmt.Fprint(out, question+" \x1b[32m>"+consoleColorReset+" ")
 	text, err := reader.ReadString('\n')
 	text = strings.Replace(text, "\n", "", -1)
 	return text, err
@@ -129,10 +131,10 @@ func WriteLn(s string) {
 
 	for tag, color := range tags {
 		output = strings.Replace(output, "<"+tag+">", "\x1b["+strconv.Itoa(fontColorCode(color))+"m", -1)
-		output = strings.Replace(output, "</"+tag+">", "\x1b[0m", -1)
+		output = strings.Replace(output, "</"+tag+">", consoleColorReset, -1)
 	}
 
-	output = strings.Replace(output, "</>", "\x1b[0m", -1)
+	output = strings.Replace(output, "</>", consoleColorReset, -1)
 
 	fmt.Fprintln(out, output)
 }
@@ -161,7 +163,7 @@ func Error(s string) {
 func PrintLine(code int, s string) {
 	fmt.Fprint(out, "\x1b["+strconv.Itoa(code)+"m")
 	fmt.Fprint(out, s)
-	fmt.Fprintln(out, "\x1b[0m")
+	fmt.Fprintln(out, consoleColorReset)
 }
 
 // BlackPanel outputs white text on a black background
@@ -209,5 +211,5 @@ func PrintBox(backgroundCode int, fontCode int, s string) {
 	fmt.Fprint(out, "\x1b["+strconv.Itoa(backgroundCode)+";"+strconv.Itoa(fontCode)+"m")
 	fmt.Fprint(out, "\n\n")
 	fmt.Fprintln(out, " "+s+" ")
-	fmt.Fprintln(out, "\x1b[0m")
+	fmt.Fprintln(out, consoleColorReset)
 }
